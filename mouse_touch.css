@@ -1,0 +1,39 @@
+*{
+	margin: 0px;
+	padding: 0px;
+}
+
+html, body{
+	width: 100%;
+	height: 100%;
+	background: #fff;
+	color: #000;
+  overflow: hidden;
+  
+}
+
+canvas#front{
+	position: relative;
+	top: 0px;
+	left: 0px;
+}
+
+canvas#back{
+	position: absolute;
+	top: 0px;
+	left: 0px;
+}
+
+
+/*Keep the cursor looking like a pointer 
+whether or not it is being dragged*/
+canvas, canvas:active { 
+  cursor: pointer;
+}
+
+.unselectable {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
