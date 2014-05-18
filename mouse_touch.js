@@ -19,9 +19,13 @@ $(document).ready(function(){
   var drag_y = 0;
   var drag = false;
   var zoom = 1.0;
+  var current_x = 0;
+  var current_y = 0;
+  var ball_radius = 20;
+  var old_width = width;
+  var old_height = height;
   
-
-  //Prevent Rubberband Drag on OSX and mobile
+  //Prevent Rubberband Drag on top and bottom edges
   $('body').bind('touchmove', function (ev) { 
     ev.preventDefault();
   });
@@ -38,10 +42,14 @@ $(document).ready(function(){
   function renderWindow(){
     width = $(window).width();      // browser window width
     height = $(window).height();    // browser window height
+    current_x = current_x * width / old_width;
+    current_y = current_y * height / old_height;
     window_width_text.text(width);       // set debug window text
     window_height_text.text(height);     // set debug window text
     renderForeground(front_canvas, front_context);
     renderBackground(background_canvas, back_con);
+    old_width = width;
+    old_height = height;
   }
   
   
@@ -53,10 +61,17 @@ $(document).ready(function(){
     canvas.style.height = Math.floor(height * zoom / 2) + "px";
     
     //Draw canvas foreground
-    context.fillStyle = "rgba(255, 255, 0, .5)";
     context.beginPath();
-    context.rect(0,0,width / 2,height / 2);
+    context.arc(current_x, current_y, ball_radius, 0, 2 * Math.PI, false);
+    context.fillStyle = "#ff0000";
     context.fill();
+    // context.lineWidth = 5;
+    // context.strokeStyle = '#003300';
+    // context.stroke();
+    // context.fillStyle = "rgba(255, 255, 0, .5)";
+    // context.beginPath();
+    // context.rect(0,0,width / 2,height / 2);
+    // context.fill();
   }
 
   function renderBackground(canvas, context){
@@ -88,14 +103,17 @@ $(document).ready(function(){
   };
   // Mobile Touch Starts
   front_canvas.addEventListener('touchstart', function(event){
-    event.preventDefault(); start_paint_t(event); 
+    event.preventDefault(); 
+    start_paint_t(event); 
   });
   
   // Desktop Click set all variables
   function start_paint(event){
     drag = true;
+    drag_x = event.clientX;
+    drag_y = event.clientY;
     update_drag_status();
-    update_event_log('mouse_down', event.clientX, event.clientY);
+    update_event_log('mouse_down', drag_x, drag_y);
     return true;
   }
   // Mobile Touch set all variables
@@ -121,7 +139,7 @@ $(document).ready(function(){
       
   // Mobile Tap Drag
   front_canvas.addEventListener('touchmove', function(event){
-    move_touch(event); e.preventDefault(); 
+    move_touch(event); event.preventDefault(); 
   });
 
   // Desktop Click Drag Event
@@ -170,7 +188,7 @@ $(document).ready(function(){
   
   //Mobile tap end
   front_canvas.addEventListener('touchend', function(event){
-    stop_paint_t(event); e.preventDefault(); 
+    stop_paint_t(event); event.preventDefault(); 
   });
 
   //Catchall event in case a mouse that is dragging the canvas leaves the canvas
@@ -210,6 +228,14 @@ $(document).ready(function(){
     var d = new Date();
     var time = d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
     row.innerHTML = '<td>' + id + '</td><td>' + time + '</td><td>' + x + '</td><td>' + y + '</td>';
+    update_most_recent(x, y, time);
   }
   
+  function update_most_recent(x, y, time){
+    var most_recent_row = document.getElementById("most_recent");	
+    most_recent_row.innerHTML = '<td>most_recent</td><td>' + time + '</td><td>' + x + '</td><td>' + y + '</td>';
+    current_x = x;
+    current_y = y;
+    renderForeground(front_canvas, front_context);
+  }
 });
