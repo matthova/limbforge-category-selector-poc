@@ -130,7 +130,6 @@ $(document).ready(function(){
     row.innerHTML = '<td>' + id + '</td><td>' + time + '</td><td>' + x + '</td><td>' + y + '</td>';
   }
 
-
   function preview_paint(event){
     if(!drag){return false;}
     update_event_log('mouse_move', event.clientX, event.clientY);
