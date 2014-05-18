@@ -39,3 +39,7 @@ canvas, canvas:active {
   -ms-user-select: none;
   user-select: none;
 }
+
+th, tr, td{
+  border: solid 1px #000;
+}
