@@ -1,6 +1,9 @@
 *{
 	margin: 0px;
 	padding: 0px;
+  
+  /*This disables a brief flash when tapping*/
+  -webkit-tap-highlight-color: rgba(0,0,0,0); 
 }
 
 html, body{
@@ -9,7 +12,6 @@ html, body{
 	background: #fff;
 	color: #000;
   overflow: hidden;
-  
 }
 
 canvas#front{

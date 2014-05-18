@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html>
-<!-- Example adapted from site by http://paint.puggan.se/paint/paint_201306011919.html -->
+<!-- Example adapted from site by http://paint.puggan.se/paint/paint_201306011919.html 
+Thanks for the demo! -->
 <head>
-		<title>Mouse & Touch Events</title>
-    <link rel="stylesheet" href="mouse_touch.css">
-    <script src="jquery-2.1.0.min.js" type="text/javascript" charset="utf-8"></script>
-    <script src="mouse_touch.js" type="text/javascript" charset="utf-8"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no"/>
+  <title>Mouse & Touch Events</title>
+  <link rel="stylesheet" href="mouse_touch.css">
+  <script src="jquery-2.1.0.min.js" type="text/javascript" charset="utf-8"></script>
+  <script src="mouse_touch.js" type="text/javascript" charset="utf-8"></script>
 </head>
 <body>
 	<canvas id='back' class='unselectable'></canvas>
@@ -17,26 +19,27 @@
 				<th>Time</th>
 				<th>X</th>
 				<th>Y</th>
-				<th>painting</th>
 		  </tr>
 		</thead>
 		<tbody>
-			<tr id='debug_row_mouse_down'><td>MouseDown</td></tr>
-			<tr id='debug_row_mouse_move'><td>MouseMove</td></tr>
-			<tr id='debug_row_mouse_up'><td>MouseUp</td></tr>
-			<tr id='debug_row_touch_start'><td>TouchStart</td></tr>
-			<tr id='debug_row_touch_move'><td>TouchMove</td></tr>
-			<tr id='debug_row_touch_end'><td>TouchEnd</td></tr>
+			<tr id='mouse_down'><td>mouse_down</tr>
+			<tr id='mouse_move'><td>mouse_move</td></tr>
+			<tr id='mouse_up'><td>mouse_up</td></tr>
+			<tr id='touch_start'><td>touch_start</td></tr>
+			<tr id='touch_move'><td>touch_move</td></tr>
+			<tr id='touch_end'><td>touch_end</td></tr>
 		</tbody>
 	</table>
   <table>
     <tr>
       <th>Window Width</th>
       <th>Window Height</th>
+      <th>Drag Status</th>
     </tr>
     <tr>
       <td id='window_width'></td>
       <td id='window_height'></td>
+      <td id='drag_status'></td>
     </tr>
   </table>
 </body>
