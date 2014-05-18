@@ -65,13 +65,6 @@ $(document).ready(function(){
     context.arc(current_x, current_y, ball_radius, 0, 2 * Math.PI, false);
     context.fillStyle = "#ff0000";
     context.fill();
-    // context.lineWidth = 5;
-    // context.strokeStyle = '#003300';
-    // context.stroke();
-    // context.fillStyle = "rgba(255, 255, 0, .5)";
-    // context.beginPath();
-    // context.rect(0,0,width / 2,height / 2);
-    // context.fill();
   }
 
   function renderBackground(canvas, context){
