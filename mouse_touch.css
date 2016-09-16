@@ -1,9 +1,9 @@
 *{
 	margin: 0px;
 	padding: 0px;
-  
+
   /*This disables a brief flash when tapping*/
-  -webkit-tap-highlight-color: rgba(0,0,0,0); 
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
 }
 
 html, body{
@@ -27,9 +27,9 @@ canvas#back{
 }
 
 
-/*Keep the cursor looking like a pointer 
+/*Keep the cursor looking like a pointer
 whether or not it is being dragged*/
-canvas, canvas:active { 
+canvas, canvas:active {
   cursor: pointer;
 }
 
@@ -42,4 +42,9 @@ canvas, canvas:active {
 
 th, tr, td{
   border: solid 1px #000;
+}
+
+#arm-svg {
+	position: relative;
+	z-index:1;
 }

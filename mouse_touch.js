@@ -13,7 +13,7 @@ $(document).ready(function(){
   var touch_move = $('#touch_move');
   var touch_end = $('#touch_end');
   var drag_status = $('#drag_status');
-  
+
   //Canvas Variables
   var drag_x = 0;
   var drag_y = 0;
@@ -24,12 +24,12 @@ $(document).ready(function(){
   var ball_radius = 20;
   var old_width = width;
   var old_height = height;
-  
+
   //Prevent Rubberband Drag on top and bottom edges
-  $('body').bind('touchmove', function (ev) { 
+  $('body').bind('touchmove', function (ev) {
     ev.preventDefault();
   });
-  
+
   var body = $("#body");
   var front_canvas = document.getElementById("front");
   var front_context = front_canvas.getContext("2d");
@@ -51,33 +51,59 @@ $(document).ready(function(){
     old_width = width;
     old_height = height;
   }
-  
-  
+
+
   function renderForeground(canvas, context){
     //Set canvas width and height
     canvas.width = width;
-    canvas.height = height / 2;
+    canvas.height = height;
     canvas.style.width = Math.floor(width * zoom) + "px";
-    canvas.style.height = Math.floor(height * zoom / 2) + "px";
-    
+    canvas.style.height = Math.floor(height * zoom) + "px";
+
     //Draw canvas foreground
+
+    context.fillStyle = "#000000";
+    context.fillRect(0, 0, width, current_y);
+
     context.beginPath();
-    context.arc(current_x, current_y, ball_radius, 0, 2 * Math.PI, false);
-    context.fillStyle = "#ff0000";
+    context.arc(width / 2, height / 4, ball_radius, 0, 2 * Math.PI, false);
+    if (current_y > height / 4) {
+      context.fillStyle = "#ff0000";
+    } else {
+      context.fillStyle = "#ffffff";
+    }
+    context.fill();
+
+    context.beginPath();
+    context.arc(width / 2, height / 2, ball_radius, 0, 2 * Math.PI, false);
+    if (current_y > height / 2) {
+      context.fillStyle = "#ff0000";
+    } else {
+      context.fillStyle = "#ffffff";
+    }
+    context.fill();
+
+    context.beginPath();
+    context.arc(width / 2, height * 3 / 4, ball_radius, 0, 2 * Math.PI, false);
+    if (current_y > height * 3 / 4) {
+      context.fillStyle = "#ff0000";
+    } else {
+      context.fillStyle = "#ffffff";
+    }
     context.fill();
   }
 
   function renderBackground(canvas, context){
     //set canvas width and height
     canvas.width = width;
-    canvas.height = height / 2;
+    canvas.height = height;
     canvas.style.width = Math.floor(width * zoom) + "px";
-    canvas.style.height = Math.floor(height * zoom / 2) + "px";
-    
+    canvas.style.height = Math.floor(height * zoom) + "px";
+
      // set canvas background color
     context.fillStyle = "#999999";
     context.beginPath();
-    context.rect(0,0,width,height / 2);
+    context.rect(0,0,width,height);
     context.fill();
   }
 
@@ -88,18 +114,18 @@ $(document).ready(function(){
 
   //Handle creation of click / tap events
   ///////////////////////////////////////
-  
+
   // Desktop Click Starts
-  front_canvas.onmousedown = function(event){ 
-    start_paint(event); 
-    return false; 
+  front_canvas.onmousedown = function(event){
+    start_paint(event);
+    return false;
   };
   // Mobile Touch Starts
   front_canvas.addEventListener('touchstart', function(event){
-    event.preventDefault(); 
-    start_paint_t(event); 
+    event.preventDefault();
+    start_paint_t(event);
   });
-  
+
   // Desktop Click set all variables
   function start_paint(event){
     drag = true;
@@ -119,30 +145,30 @@ $(document).ready(function(){
     drag_y = event.touches[0].pageY;
     return true;
   }
-  
-  
+
+
   //// Handle mouse and touch drag events
   ///////////////////////////////////////
-  
+
   // Desktop Drag Mouse
   window.onmousemove = function(event){
     if(drag) move_click(event);
     return false;
   };
-      
+
   // Mobile Tap Drag
   front_canvas.addEventListener('touchmove', function(event){
-    move_touch(event); event.preventDefault(); 
+    move_touch(event); event.preventDefault();
   });
 
   // Desktop Click Drag Event
   function move_click(event){
     drag_x = event.clientX;
     drag_y = event.clientY;
-    
+
     if (drag_x > front_canvas.width) drag_x = front_canvas.width - 1;
     if (drag_x < 0) drag_x = 0;
-    
+
     if (drag_y > front_canvas.height) drag_y = front_canvas.height - 1;
     if(drag_y < 0) drag_y = 0;
 
@@ -159,11 +185,11 @@ $(document).ready(function(){
     // Limit coordinate to canvas boundaries
     if (drag_x > front_canvas.width) drag_x = front_canvas.width - 1;
     if (drag_x < 0) drag_x = 0;
-    
+
     if (drag_y > front_canvas.height) drag_y = front_canvas.height - 1;
     if(drag_y < 0) drag_y = 0;
-    
-    update_event_log('touch_move', drag_x, drag_y);    
+
+    update_event_log('touch_move', drag_x, drag_y);
     return true;
   }
 
@@ -174,14 +200,14 @@ $(document).ready(function(){
   //Desktop mouse click ends
   front_canvas.onmouseup = function(event){
     if(drag){
-      stop_paint(event); 
-      return false; 
+      stop_paint(event);
+      return false;
     }
   };
-  
+
   //Mobile tap end
   front_canvas.addEventListener('touchend', function(event){
-    stop_paint_t(event); event.preventDefault(); 
+    stop_paint_t(event); event.preventDefault();
   });
 
   //Catchall event in case a mouse that is dragging the canvas leaves the canvas
@@ -191,7 +217,7 @@ $(document).ready(function(){
       return false;
     }
   });
-  
+
   //Desktop stop mouse event
   function stop_paint(event){
     drag = false;
@@ -211,22 +237,16 @@ $(document).ready(function(){
   //////////////////////////////
   //       Debug  Events      //
   //////////////////////////////
-  
+
   function update_drag_status(){
-    drag_status.text(drag);
-  } 
+    //drag_status.text(drag);
+  }
 
   function update_event_log(id, x, y){
-    var row = document.getElementById(id);	
-    var d = new Date();
-    var time = d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
-    row.innerHTML = '<td>' + id + '</td><td>' + time + '</td><td>' + x + '</td><td>' + y + '</td>';
-    update_most_recent(x, y, time);
+    update_most_recent(x, y);
   }
-  
-  function update_most_recent(x, y, time){
-    var most_recent_row = document.getElementById("most_recent");	
-    most_recent_row.innerHTML = '<td>most_recent</td><td>' + time + '</td><td>' + x + '</td><td>' + y + '</td>';
+
+  function update_most_recent(x, y){
     current_x = x;
     current_y = y;
     renderForeground(front_canvas, front_context);
