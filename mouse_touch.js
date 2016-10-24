@@ -43,8 +43,9 @@ $(document).ready(function(){
   function renderWindow(){
     width = $window.width();      // browser window width
     height = $window.height();    // browser window height
-    current_x = current_x * width / old_width;
-    current_y = current_y * height / old_height;
+    // if the image needs to resize on mobile revisit this:
+    //current_x = current_x * width / old_width;
+    //current_y = current_y * height / old_height;
     render_cursor(parseInt(current_x, 10), parseInt(current_y, 10));
 
     // Set the current width and height to old_width and old_height

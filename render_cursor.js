@@ -10,6 +10,9 @@ function render_cursor(x, y) {
   } else if (y < 120) {
     level = 120;
   }
+  if (y > 270){
+    y = 270
+  }
   $("#top").css("clip", "rect(0px, 350px, " + level + "px, 0px)");
   $("#bar").css("top", y + "px");
 }
