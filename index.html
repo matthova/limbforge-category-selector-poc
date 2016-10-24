@@ -6,11 +6,17 @@ Thanks for the demo! -->
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no"/>
   <title>Mouse & Touch Events</title>
   <link rel="stylesheet" href="mouse_touch.css">
-  <script src="jquery-2.1.0.min.js" type="text/javascript" charset="utf-8"></script>
-  <script src="mouse_touch.js" type="text/javascript" charset="utf-8"></script>
 </head>
 <body id='body'>
-  <canvas id='back' class='unselectable'></canvas>
-  <canvas id='front' class='unselectable'></canvas>
+  <div id="bot" style="position: absolute;background-image: url('default.svg');background-size: 265px;height: 300px;background-position: center;top: 0;bottom: 0;left: 0;right: 0;background-repeat: no-repeat;width: 350px;">
+  </div>
+  <div id="top" style="position: absolute;background-image: url('arm_level.svg');background-size: 265px;height: 300px;background-position: center;top: 0;bottom: 0;left: 0;right: 0;background-repeat: no-repeat;width: 350px;">
+  </div>
+  <div id="bar" style="position:absolute; background-color: #000; height: 10px; top:0px; left:0px; right:0px; width: 350px;">
+    <img src="drag.svg" style="width: 75px;position: absolute;right: -20px;top: -34px;">
+  </div>
+  <script src="jquery-2.1.0.min.js" type="text/javascript" charset="utf-8"></script>
+  <script src="render_cursor.js" type="text/javascript" charset="utf-8"></script>
+  <script src="mouse_touch.js" type="text/javascript" charset="utf-8"></script>
 </body>
 </html>
